@@ -1,0 +1,83 @@
+# === Environnements de développement ===
+.idea/
+.vscode/
+*.code-workspace
+
+# === Environnement virtuel Python ===
+venv/
+env/
+ENV/
+.venv/
+
+data/
+# === Fichiers Python compilés ===
+__pycache__/
+*.py[cod]
+*$py.class
+
+# === Fichiers de logs ===
+*.log
+
+# === Fichiers de base de données temporaires ===
+*.sqlite3
+*.db
+
+# === Caches et fichiers temporaires ===
+*.bak
+*.tmp
+*.swp
+.DS_Store
+
+# === Fichiers Jupyter / IPython ===
+.ipynb_checkpoints/
+
+# === Node.js si tu ajoutes React ===
+node_modules/
+build/
+dist/
+*.lock
+
+# === fichiers système ===
+Thumbs.db
+desktop.ini
+# === Environnements de développement ===
+.idea/
+.vscode/
+*.code-workspace
+
+# === Environnement virtuel Python ===
+venv/
+env/
+ENV/
+.venv/
+
+# === Fichiers Python compilés ===
+__pycache__/
+*.py[cod]
+*$py.class
+
+# === Fichiers de logs ===
+*.log
+
+# === Fichiers de base de données temporaires ===
+*.sqlite3
+*.db
+
+# === Caches et fichiers temporaires ===
+*.bak
+*.tmp
+*.swp
+.DS_Store
+
+# === Fichiers Jupyter / IPython ===
+.ipynb_checkpoints/
+
+# === Node.js si tu ajoutes React ===
+node_modules/
+build/
+dist/
+*.lock
+
+# === fichiers système ===
+Thumbs.db
+desktop.ini
