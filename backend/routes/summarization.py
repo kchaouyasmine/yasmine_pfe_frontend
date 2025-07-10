@@ -7,8 +7,8 @@ import asyncio
 from backend.services.podcast_service import generate_improved_podcast_script, generate_complete_emotional_podcast
 import base64
 
-summarization_bp = Blueprint('summarization', __name__)
 
+summarization_bp = Blueprint('summarization', __name__)
 @summarization_bp.route('/summarize', methods=['POST'])
 def summarize():
     if 'pdf' not in request.files:

@@ -47,7 +47,7 @@ def init_database():
                 admin_user = User(
                     username='admin',
                     email='admin@articspace.com',
-                    password='admin123'
+                    password_hash='admin123'
                 )
                 admin_user.first_name = 'Administrateur'
                 admin_user.last_name = 'ArticSpace'
@@ -73,7 +73,7 @@ def init_database():
                 test_user = User(
                     username='testuser',
                     email='test@articspace.com',
-                    password='test123'
+                    password_hash='test123'
                 )
                 test_user.first_name = 'Utilisateur'
                 test_user.last_name = 'Test'

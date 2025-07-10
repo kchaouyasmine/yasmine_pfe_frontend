@@ -140,6 +140,29 @@ def upload():
     # GET fallback: API only
     return jsonify({'success': False, 'message': 'Cette route est réservée à l’API.'}), 400
 
+@articles_bp.route('/my-article', methods=['GET'])
+@login_required
+def get_my_articles():
+    """Retourne les articles de l'utilisateur connecté"""
+    try:
+        # Récupérer tous les articles appartenant à l'utilisateur connecté
+        user_articles = Article.query.filter_by(
+            user_id=current_user.id, is_deleted=False
+        ).order_by(Article.created_at.desc()).all()
+
+        # Formater les articles dans une structure JSON
+        return jsonify({
+            'success': True,
+            'articles': [article.to_dict() for article in user_articles]
+        }), 200
+    except Exception as e:
+        # Gérer les erreurs de manière propre
+        print(f"Erreur lors de la récupération des articles : {e}")
+        return jsonify({
+            'success': False,
+            'message': "Erreur interne lors de la récupération de vos articles."
+        }), 500
+
 def handle_file_upload():
     """Gère l'upload de fichiers"""
     if 'file' not in request.files:
@@ -586,17 +609,7 @@ def delete(id):
         article.deleted_at = datetime.utcnow()
         
         db.session.commit()
-        
-        # Logger l'activité
-        log_user_activity(
-            current_user.id,
-            'article_delete',
-            {
-                'article_id': article.id,
-                'title': article.title,
-                'type': article.article_type
-            }
-        )
+    
         
         success_msg = f"Article '{article.title}' supprimé avec succès"
         
