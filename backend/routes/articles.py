@@ -30,7 +30,7 @@ from backend.services.rag_system import EnhancedMUragSystem
 articles_bp = Blueprint('articles', __name__)
 
 # Configuration pour les uploads
-UPLOAD_FOLDER = 'frontend/static/uploads/articles'
+UPLOAD_FOLDER = 'frontend\\static\\uploads\\articles'
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'txt'}
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
 
@@ -756,12 +756,20 @@ def download(id):
         return jsonify({'success': False, 'message': 'Article non accessible'}), 403
     
     # Vérifier que c'est un article fichier
-    if article.article_type != 'file' or not article.file_path:
+    if not article.file_path:
         return jsonify({'success': False, 'message': 'Aucun fichier à télécharger'}), 400
     
     # Vérifier que le fichier existe
     if not os.path.exists(article.file_path):
         return jsonify({'success': False, 'message': 'Fichier introuvable'}), 400
+    
+    relative_path = article.file_path
+    FRONTEND_DIR = os.path.abspath(os.path.join(current_app.root_path, '..'))
+    full_path = os.path.join(FRONTEND_DIR, relative_path)
+    print(f"file name", full_path)
+    
+    if not os.path.exists(full_path):
+        return jsonify({'success': False, 'message': 'Fichier introuvable 2'}), 400
     
     try:
         # Logger l'activité
@@ -771,14 +779,15 @@ def download(id):
             {
                 'article_id': article.id,
                 'article_title': article.title,
-                'filename': article.filename
+                'filename': article.original_filename
             }
         )
+        print(f"file name", full_path)
         
         return send_file(
-            article.file_path,
+            full_path,
             as_attachment=True,
-            download_name=article.filename or f"article_{id}.pdf"
+            download_name=article.original_filename 
         )
         
     except Exception as e:

@@ -138,7 +138,8 @@ class Article(db.Model, TimestampMixin, SoftDeleteMixin):
     def to_dict(self, include_content=False, user=None):
         """Sérialisation pour JSON"""
         data = {
-            'id': self.public_id,
+            'id': self.id,
+            'public_id': self.public_id,
             'title': self.title,
             'description': self.description,
             'original_filename': self.original_filename,

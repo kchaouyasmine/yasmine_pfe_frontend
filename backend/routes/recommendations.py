@@ -422,7 +422,7 @@ def get_similar_articles(article_id):
         recommendations = rag.get_recommendations(
             text=query_text,
             n=max_results,
-            current_filename=article.filename
+            current_filename=article.original_filename
         )
         processing_time = time.time() - start_time
         
@@ -434,12 +434,12 @@ def get_similar_articles(article_id):
             
             if source_type == 'local' and include_local:
                 similar_articles.append({
-                    'id': rec.get('filename', f"similar_{len(similar_articles)}"),
+                    'id': rec.get('current_filename', f"similar_{len(similar_articles)}"),
                     'title': rec.get('title', 'Titre non disponible'),
                     'source': 'local',
                     'relevance_score': rec.get('relevance', 'N/A'),
                     'snippet': rec.get('snippet', ''),
-                    'filename': rec.get('filename'),
+                    'current_filename': rec.get('current_filename'),
                     'similarity_type': 'content_based'
                 })
             
@@ -462,7 +462,7 @@ def get_similar_articles(article_id):
                 'reference_article': {
                     'id': article.id,
                     'title': article.title,
-                    'filename': article.filename
+                    'current_filename': article.original_filename
                 },
                 'similar_articles': similar_articles,
                 'metadata': {
